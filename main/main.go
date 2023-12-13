@@ -28,11 +28,13 @@ func formatDuration(rawDuration string) (string, error) {
 	}
 
 	duration := time.Duration(seconds) * time.Second
-	minutes := int(duration.Minutes())
+	hours := int(duration.Hours())
+	minutes := int(duration.Minutes()) % 60
 	secondsRemainder := int(duration.Seconds()) % 60
 
-	return fmt.Sprintf("%02d:%02d", minutes, secondsRemainder), nil
+	return fmt.Sprintf("%02d:%02d:%02d", hours, minutes, secondsRemainder), nil
 }
+
 
 func main() {
 	file, err := os.Create("track_durations.txt")
